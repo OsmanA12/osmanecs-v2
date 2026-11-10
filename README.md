@@ -4,7 +4,8 @@
 
 A URL shortener with click analytics on AWS. Three services, one cluster. The application code is provided. You build everything else.
 
-[Blank diagram (2).pdf](https://github.com/user-attachments/files/34655967/Blank.diagram.2.pdf)
+<img width="788" height="887" alt="image" src="https://github.com/user-attachments/assets/3800a15e-a635-484a-8771-4953d4d10298" />
+
 
 
 ## Services
