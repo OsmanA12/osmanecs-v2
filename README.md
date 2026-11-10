@@ -1,10 +1,11 @@
-<div align="center">
-    <img src="./images/coderco.jpg" alt="CoderCo" width="300"/>
-</div>
 
-# URL Shortener - CoderCo ECS Project v2
+
+# URL Shortener - ECS Project v2
 
 A URL shortener with click analytics on AWS. Three services, one cluster. The application code is provided. You build everything else.
+
+[Blank diagram (2).pdf](https://github.com/user-attachments/files/34655967/Blank.diagram.2.pdf)
+
 
 ## Services
 
