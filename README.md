@@ -1,6 +1,6 @@
 
 
-# URL Shortener - ECS Project v2
+# URL Shortener - ECS Project v2 (In Progress)
 
 A URL shortener with click analytics on AWS. Three services, one cluster. The application code is provided. You build everything else.
 
@@ -20,7 +20,7 @@ Read the code. Environment variables and endpoints are in the source files.
 
 ---
 
-## Your Job
+## Job Requirements
 
 Write the Dockerfiles. Write the Terraform. Write the CI/CD pipeline. Deploy all three services to ECS Fargate on AWS.
 
