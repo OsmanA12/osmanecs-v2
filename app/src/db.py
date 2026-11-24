@@ -3,13 +3,17 @@ Database abstraction layer.
 
 Supports two backends:
   - DynamoDB (default): set TABLE_NAME env var
-  - PostgreSQL (RDS):   set DATABASE_URL env var (e.g. postgresql://user:pass@host:5432/dbname)
+  - PostgreSQL (RDS): set DATABASE_URL env var
+
+DATABASE_URL supports both a PostgreSQL connection string
+and JSON credentials from AWS Secrets Manager.
 
 The backend is selected automatically based on which env var is set.
 If both are set, DATABASE_URL takes precedence.
 """
 
 import os
+import json
 
 _backend = None
 
@@ -58,7 +62,25 @@ def _init_postgres():
     import psycopg2
     from psycopg2.extras import RealDictCursor
 
-    conn = psycopg2.connect(os.environ["DATABASE_URL"])
+    database_url = os.environ["DATABASE_URL"]
+
+    # AWS Secrets Manager JSON credentials
+    if database_url.strip().startswith("{"):
+        secret = json.loads(database_url)
+
+        conn = psycopg2.connect(
+            host=secret["host"],
+            port=secret["port"],
+            dbname=secret["dbname"],
+            user=secret["username"],
+            password=secret["password"],
+            sslmode="require"
+        )
+
+    # Standard PostgreSQL connection string (local development)
+    else:
+        conn = psycopg2.connect(database_url)
+
     conn.autocommit = True
 
     with conn.cursor() as cur:
