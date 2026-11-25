@@ -1,6 +1,6 @@
-
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, FileResponse
+from pathlib import Path
 from pydantic import BaseModel
 import os, hashlib, time
 
@@ -8,6 +8,14 @@ from .db import put_mapping, get_mapping, get_backend_type, increment_clicks
 from .events import publish_click_event
 
 app = FastAPI()
+
+
+# Serve the frontend homepage
+@app.get("/", include_in_schema=False)
+def homepage():
+    return FileResponse(
+        Path(__file__).resolve().parent / "frontend" / "index.html"
+    )
 
 
 # Define the JSON request body for shortening URLs

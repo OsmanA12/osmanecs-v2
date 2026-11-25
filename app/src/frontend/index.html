@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link. — Less link. More impact.</title>
+
+    <style>
+        :root {
+            --background: #101110;
+            --surface: #1b1d19;
+            --accent: #d4fa75;
+            --text: #f5f5ef;
+            --muted: #a0a39b;
+            --border: #383c31;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--background);
+            background-image:
+                linear-gradient(#ffffff06 1px, transparent 1px),
+                linear-gradient(90deg, #ffffff06 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 7%;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+        }
+
+        .brand-icon {
+            background: var(--accent);
+            color: var(--background);
+            border-radius: 10px;
+            padding: 5px 12px;
+            font-size: 28px;
+        }
+
+        .accent {
+            color: var(--accent);
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 850px;
+            margin: auto;
+            padding: 80px 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .eyebrow {
+            font-family: monospace;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: clamp(48px, 9vw, 100px);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -4px;
+            margin-bottom: 25px;
+        }
+
+        .subtitle {
+            max-width: 460px;
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .shortener {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 20px 60px #00000030;
+        }
+
+        label {
+            display: block;
+            color: var(--muted);
+            font-family: monospace;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 0;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            padding: 18px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 16px 24px;
+            background: var(--accent);
+            color: var(--background);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: wait;
+            transform: none;
+        }
+
+        #result {
+            display: none;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .result-label {
+            font-family: monospace;
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #shortUrl {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        #shortUrl:hover {
+            text-decoration: underline;
+        }
+
+        .copy-btn {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 10px 18px;
+        }
+
+        #error {
+            color: #ff8585;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature {
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        .feature-number {
+            font-family: monospace;
+            color: var(--accent);
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 25px 7%;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 50px 20px;
+            }
+
+            h1 {
+                letter-spacing: -2px;
+            }
+
+            .input-row,
+            .result-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .shortener {
+                padding: 18px;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="brand">
+            <span class="brand-icon">↗</span>
+            <span>link<span class="accent">.</span></span>
+        </div>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            AWS ECS Project
+        </div>
+    </header>
+
+    <main>
+
+        <p class="eyebrow">01 / THE URL SHORTENER</p>
+
+        <h1>
+            Less link.<br>
+            <span class="accent">More impact.</span>
+        </h1>
+
+        <p class="subtitle">
+            Turn lengthy URLs into clean, shareable links.
+            Built for simplicity, engineered for scale.
+        </p>
+
+        <section class="shortener">
+
+            <form id="shortenForm">
+
+                <label for="urlInput">YOUR LONG URL</label>
+
+                <div class="input-row">
+
+                    <input
+                        type="url"
+                        id="urlInput"
+                        placeholder="https://paste-your-link-here.com"
+                        required
+                    >
+
+                    <button type="submit" id="shortenBtn">
+                        Shorten ↗
+                    </button>
+
+                </div>
+
+            </form>
+
+            <div id="result">
+
+                <p class="result-label">YOUR SHORTENED LINK</p>
+
+                <div class="result-row">
+
+                    <a
+                        id="shortUrl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    ></a>
+
+                    <button class="copy-btn" id="copyBtn">
+                        Copy link
+                    </button>
+
+                </div>
+
+            </div>
+
+            <p id="error" role="alert"></p>
+
+        </section>
+
+        <section class="features">
+
+            <div class="feature">
+                <div class="feature-number">01.</div>
+                <h3>Instant links</h3>
+                <p>
+                    Transform long URLs into compact,
+                    shareable links in seconds.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-number">02.</div>
+                <h3>Click analytics</h3>
+                <p>
+                    Track link clicks and understand
+                    how your links are being used.
+                </p>
+            </div>
+
+            <div class="feature">
+                <div class="feature-number">03.</div>
+                <h3>Cloud native</h3>
+                <p>
+                    Built on AWS using containerised
+                    microservices and cloud infrastructure.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <span>
+            Designed & engineered by
+            <a href="https://github.com/OsmanA12"
+               target="_blank"
+               rel="noopener noreferrer">
+                Osman Al-Bakri
+            </a>
+        </span>
+
+        <span>AWS · Docker · Terraform</span>
+
+    </footer>
+
+    <script>
+        const form = document.getElementById("shortenForm");
+        const button = document.getElementById("shortenBtn");
+        const result = document.getElementById("result");
+        const shortUrl = document.getElementById("shortUrl");
+        const error = document.getElementById("error");
+        const copyBtn = document.getElementById("copyBtn");
+
+        form.addEventListener("submit", async (event) => {
+
+            event.preventDefault();
+
+            const url = document
+                .getElementById("urlInput")
+                .value.trim();
+
+            error.textContent = "";
+            result.style.display = "none";
+            copyBtn.textContent = "Copy link";
+
+            button.disabled = true;
+            button.textContent = "Shortening...";
+
+            try {
+
+                const parsedUrl = new URL(url);
+
+                if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+                    throw new Error("Please enter a valid HTTP or HTTPS URL.");
+                }
+
+                const response = await fetch("/shorten", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ url: url })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Unable to shorten URL. Please try again.");
+                }
+
+                const data = await response.json();
+
+                const link = new URL(
+                    data.short_url,
+                    window.location.origin
+                );
+
+                if (!["http:", "https:"].includes(link.protocol)) {
+                    throw new Error("Invalid shortened URL.");
+                }
+
+                shortUrl.href = link.href;
+                shortUrl.textContent = link.href;
+
+                result.style.display = "block";
+
+            } catch (err) {
+
+                error.textContent = err.message;
+
+            } finally {
+
+                button.disabled = false;
+                button.textContent = "Shorten ↗";
+
+            }
+
+        });
+
+        copyBtn.addEventListener("click", async () => {
+
+            try {
+
+                await navigator.clipboard.writeText(shortUrl.href);
+
+                copyBtn.textContent = "Copied ✓";
+
+                setTimeout(() => {
+                    copyBtn.textContent = "Copy link";
+                }, 2000);
+
+            } catch {
+
+                error.textContent = "Please copy the link manually.";
+
+            }
+
+        });
+    </script>
+
+</body>
+</html>
